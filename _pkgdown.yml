@@ -1,0 +1,39 @@
+url: https://jeffsocal.github.io/msreadr/
+navbar:
+  components:
+    home: ~
+
+template:
+  bootstrap: 5
+reference:
+- title: Read Mass-Spec Data
+  description: |
+    Import a data file.
+  contents:
+  - read_spectra
+
+- title: internal
+  contents:
+  - read_psms
+  - as.data.frame.ms2spectra
+  - check_ms2spectra
+  - "%like%"
+  - import_comet
+  - import_mgf
+  - import_msamanda
+  - import_mzml
+  - import_omssa
+  - import_sage
+  - import_xtandem
+  - ms2spectra
+  - ms_amanda_peptide
+  - msreadr_quo
+  - msreadr_quo_name
+  - omssa_peptide
+  - path_to_example
+  - print.ms2spectra
+  - println
+  - subset
+  - write_mgf
+  - write_mzml
+  - xtandem_peptide
