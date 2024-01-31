@@ -2,16 +2,14 @@
 % Please edit documentation in R/import_ms2_mfg.R
 \name{import_mgf}
 \alias{import_mgf}
-\title{The main function for parsing a fasta file}
+\title{Parse an MGF file}
 \usage{
 import_mgf(path = NULL)
 }
 \arguments{
-\item{path}{a character string of the path to the MGF formatted file}
-}
-\value{
-a tibble
+\item{path}{A character string of the path to the MGF formatted file}
 }
 \description{
-\code{import_mgf()} get the current regex
+\code{import_mgf()} a helper function to parse a given MGF file into a ms2spectra
+standardized data object for use among the tidyproteomics packages.
 }

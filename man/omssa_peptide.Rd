@@ -2,18 +2,18 @@
 % Please edit documentation in R/import_psms_omssa.R
 \name{omssa_peptide}
 \alias{omssa_peptide}
-\title{helper function to read in platform specific results}
+\title{Format OMSSA peptide strings}
 \usage{
 omssa_peptide(sequence = NULL, modifications = NULL)
 }
 \arguments{
-\item{sequence}{string}
+\item{sequence}{A peptide string}
 
-\item{modifications}{string}
+\item{modifications}{A string of modifications}
 }
 \value{
 string
 }
 \description{
-helper function to read in platform specific results
+Format OMSSA peptide strings
 }

@@ -2,18 +2,16 @@
 % Please edit documentation in R/read_spectra.R
 \name{read_spectra}
 \alias{read_spectra}
-\title{Table of spectrum values}
+\title{Read and ms2 spectra file}
 \usage{
 read_spectra(path = NULL, include_spectra = TRUE)
 }
 \arguments{
-\item{path}{location of file to parse}
+\item{path}{A character string of the path to the mzML or MGF formatted file}
 
-\item{include_spectra}{boolean to keep/drop the nested MSn spectrum}
-}
-\value{
-a tibble
+\item{include_spectra}{A boolean to keep/drop the nested MSn spectrum}
 }
 \description{
-\code{read_spectra()} get search results from a variety of platforms
+\code{read_spectra()} is the main function for parse a given mzML or MGF file into
+a ms2spectra standardized data object for use among the tidyproteomics packages.
 }

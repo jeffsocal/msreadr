@@ -2,16 +2,13 @@
 % Please edit documentation in R/data_object.R
 \name{ms2spectra}
 \alias{ms2spectra}
-\title{FASTA data object}
+\title{Declaring the spectra data object}
 \usage{
 ms2spectra(obj)
 }
 \arguments{
-\item{obj}{FASTA data list}
-}
-\value{
-FASTA data object
+\item{obj}{The current tibble or list object}
 }
 \description{
-FASTA data object
+Declaring the spectra data object
 }

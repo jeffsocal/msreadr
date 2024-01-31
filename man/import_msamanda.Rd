@@ -2,16 +2,19 @@
 % Please edit documentation in R/import_psms_msamanda.R
 \name{import_msamanda}
 \alias{import_msamanda}
-\title{helper function to read in platform specific results}
+\title{Read a MS Amanda proteomic search results file}
 \usage{
-import_msamanda(x, cpus = 1)
+import_msamanda(path, cpus = 1)
 }
 \arguments{
-\item{x}{location of file to parse}
+\item{path}{String path to file for importing}
+
+\item{cpus}{The number of cpus to use for importing}
 }
 \value{
 a tibble
 }
 \description{
-helper function to read in platform specific results
+\code{import_msamanda()} is the helper function to import tandem ms search results
+into a standardized data table.
 }

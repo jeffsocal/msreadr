@@ -6,16 +6,31 @@ navbar:
 template:
   bootstrap: 5
 reference:
-- title: Read Mass-Spec Data
+- title: Read and manipulate mass spectra data files
   description: |
-    Import a data file.
+    Read mass spectrometry based files used to encode fragmentation
+    spectra from proteomics and metabolomics experiments.
   contents:
   - read_spectra
+  - subset
+  - as.data.frame.ms2spectra
+
+- title: Write mass spectra data files
+  description: |
+    Write mass spectrometry based files used to encode fragmentation
+    spectra from proteomics and metabolomics experiments.
+  contents:
+  - write_mgf
+  - write_mzml
+
+- title: Read proteomic search results data
+  description: |
+    Read and proteomic search results file into a standardized data table.
+  contents:
+  - read_psms
 
 - title: internal
   contents:
-  - read_psms
-  - as.data.frame.ms2spectra
   - check_ms2spectra
   - "%like%"
   - import_comet
@@ -26,14 +41,11 @@ reference:
   - import_sage
   - import_xtandem
   - ms2spectra
-  - ms_amanda_peptide
   - msreadr_quo
   - msreadr_quo_name
-  - omssa_peptide
   - path_to_example
   - print.ms2spectra
   - println
-  - subset
-  - write_mgf
-  - write_mzml
+  - omssa_peptide
+  - ms_amanda_peptide
   - xtandem_peptide

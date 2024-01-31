@@ -1,16 +1,41 @@
-#' helper function to read in platform specific results
+#' Read a Sage proteomic search results file
 #'
-#' @param x location of file to parse
+#' @description
+#' `import_sage()` is the helper function to import tandem ms search results
+#' into a standardized data table.
+#'
+#' @param path
+#' String path to file for importing
+#'
+#' @param cpus
+#' The number of cpus to use for importing
 #'
 #' @return a tibble
 #'
 import_sage <- function(
-    x,
+    path,
     cpus = 1
 ){
-  # scannr contains experiment scan level (eg ms1, ms2 included)
-  proton_mass <- mass_proton()
-  out <- x |> readr::read_tsv(show_col_types = FALSE) |>
+
+  # visible bindings
+  scannr <- NULL
+  sage_discriminant_score <- NULL
+  peptide <- NULL
+  proteins <- NULL
+  ms_event <- NULL
+  calcmass <- NULL
+  matched_peaks <- NULL
+  peptide_len <- NULL
+  charge <- NULL
+  filename <- NULL
+  str_peptide <- NULL
+  str_sequence <- NULL
+
+  if(!file.exists(path)){ cli::cli_abort(".. file {basename(path)} does not exist!") }
+
+  proton_mass <- mspredictr::mass_proton()
+
+  out <- path |> readr::read_tsv(show_col_types = FALSE) |>
     dplyr::rename(
       ms_event = scannr,
       psm_rank = rank,

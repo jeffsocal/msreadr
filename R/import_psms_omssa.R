@@ -1,18 +1,42 @@
-#' helper function to read in platform specific results
+#' Read a OMSSA proteomic search results file
 #'
-#' @param x location of file to parse
+#' @description
+#' `import_omssa()` is the helper function to import tandem ms search results
+#' into a standardized data table.
+#'
+#' @param path
+#' String path to file for importing
+#'
+#' @param cpus
+#' The number of cpus to use for importing
 #'
 #' @return a tibble
 #'
 import_omssa <- function(
-    x,
+    path,
     cpus = 1
 ){
 
-  proton_mass <- mass_proton()
+  # visible bindings
+  Mass <- NULL
+  `E-value` <- NULL
+  `Filename/id` <- NULL
+  Peptide <- NULL
+  Defline <- NULL
+  ms_event <- NULL
+  psm_protein <- NULL
+  `Spectrum number` <- NULL
+  str_clean <- NULL
+  psm_sequence <- NULL
+  Mods <- NULL
+
+  if(!file.exists(path)){ cli::cli_abort(".. file {basename(path)} does not exist!") }
+
+  proton_mass <- mspredictr::mass_proton()
 
   # Filename/id contains experiment scan level (eg ms1, ms2 included)
-  out <- x |> readr::read_csv(show_col_types = FALSE) |>
+  out <- path |>
+    readr::read_csv(show_col_types = FALSE) |>
     dplyr::mutate(psm_dp = NA,
                   psm_peptide = NA,
                   # 1Th correction to get [M+H]+
@@ -37,10 +61,13 @@ import_omssa <- function(
   return(out)
 }
 
-#' helper function to read in platform specific results
+#' Format OMSSA peptide strings
 #'
-#' @param sequence string
-#' @param modifications string
+#' @param sequence
+#' A peptide string
+#'
+#' @param modifications
+#' A string of modifications
 #'
 #' @return string
 #'
@@ -58,7 +85,7 @@ omssa_peptide <- function(
   out <- ''
   for(i in 1:length(sequence)){
     if(i %in% local){
-      sequence[i] <- paste0("[", sequence[i], num_trunc(masses[which(i == local)],2), "]")
+      sequence[i] <- paste0("[", sequence[i], mspredictr::num_trunc(masses[which(i == local)],2), "]")
     }
     out <- paste0(out, sequence[i])
   }

@@ -1,18 +1,31 @@
-#' Table of spectrum values
+#' Read and ms2 spectra file
 #'
 #' @description
-#' `read_spectra()` get search results from a variety of platforms
+#' `read_spectra()` is the main function for parse a given mzML or MGF file into
+#' a ms2spectra standardized data object for use among the tidyproteomics packages.
 #'
-#' @param path location of file to parse
-#' @param include_spectra boolean to keep/drop the nested MSn spectrum
+#' @param path
+#' A character string of the path to the mzML or MGF formatted file
 #'
-#' @return a tibble
+#' @param include_spectra
+#' A boolean to keep/drop the nested MSn spectrum
+#'
 #' @export
+#'
+#' @examples
+#' # read in the data
+#' data <- path_to_example() |> read_spectra()
+#'
+#' # print the data object
+#' data
 #'
 read_spectra <- function(
     path = NULL,
     include_spectra = TRUE
 ){
+
+  # visible binding
+  peaks <- NULL
 
   cli::cli_div(theme = list(span.info = list(color = "#ff4500")))
   if(is.null(path)){ cli::cli_abort("no path to a file given") }

@@ -2,16 +2,19 @@
 % Please edit documentation in R/import_psms_sage.R
 \name{import_sage}
 \alias{import_sage}
-\title{helper function to read in platform specific results}
+\title{Read a Sage proteomic search results file}
 \usage{
-import_sage(x, cpus = 1)
+import_sage(path, cpus = 1)
 }
 \arguments{
-\item{x}{location of file to parse}
+\item{path}{String path to file for importing}
+
+\item{cpus}{The number of cpus to use for importing}
 }
 \value{
 a tibble
 }
 \description{
-helper function to read in platform specific results
+\code{import_sage()} is the helper function to import tandem ms search results
+into a standardized data table.
 }

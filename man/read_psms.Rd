@@ -2,7 +2,7 @@
 % Please edit documentation in R/read_psms.R
 \name{read_psms}
 \alias{read_psms}
-\title{Table of PSMs results}
+\title{Read a proteomic search results file}
 \usage{
 read_psms(
   path_to_psms = NULL,
@@ -12,13 +12,18 @@ read_psms(
 )
 }
 \arguments{
-\item{platform}{as character string}
+\item{path_to_psms}{String path to file for importing}
 
-\item{path}{location of file to parse}
+\item{path_to_mzml}{The number of cpus to use for importing}
+
+\item{platform}{The number of cpus to use for importing}
+
+\item{cpus}{The number of cpus to use for importing}
 }
 \value{
 a tibble
 }
 \description{
-\code{read_psms()} get search results from a variety of platforms
+\code{read_psms()} is the main function for importing tandem ms search results
+into a standardized data table from various platforms.
 }

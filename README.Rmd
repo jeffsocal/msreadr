@@ -1,0 +1,45 @@
+---
+title: "msreadr"
+author: Jeff Jones
+output:
+  md_document:
+    variant: markdown_github
+---
+
+
+# msreadr <img src="man/figures/msreadr_logo.png" align="right" width="120"/>
+
+A simplified mass-spec data reader that creates a standardized data object for use among the tidyproteomics packages.
+
+## Installation
+
+To install, open R and type:
+
+```{r, eval=FALSE}
+install.packages("devtools")
+devtools::install_github("jeffsocal/msreadr")
+```
+
+## Get Started
+
+Its simple to get started, just point the `read_spectra()` function at a downloaded MGF or mzML file and save as an object.
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+library(msreadr)
+data <- path_to_example() |> read_spectra()
+```
+
+```{r, eval=FALSE}
+library(msreadr)
+data <- path_to_example() |> read_spectra()
+```
+
+Examine the contents
+
+```{r}
+data
+```
+
+## Extending msreader
+
+Check out the related packages [mspredictr](https://github.com/jeffsocal/mspredictr)

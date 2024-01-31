@@ -1,11 +1,25 @@
-#' The main function for parsing a fasta file
+#' Write an MGF spectrum file
 #'
 #' @description
-#' `import_mgf()` get the current regex
+#' `write_mgf()` write the contents of an ms2spectrum data object to an MGF
+#' formmated file.
 #'
-#' @param path a character string of the path to the MGF formatted file
-#' @return a tibble
+#' @param data
+#' An ms2spectra data object
+#'
+#' @param path
+#' A character string of the path to the MGF formatted file
+#'
+#' @return silent on success, an abort message on fail
+#'
 #' @export
+#'
+#' @examples
+#' #\dontrun{
+#' data <- path_to_example() |> read_spectra()
+#'
+#' data |> write_mgf("path_to_file.mgf")
+#' }
 #'
 write_mgf <- function(
     data = NULL,
@@ -52,7 +66,7 @@ write_mgf <- function(
           out_string <- ""
         }
       }
-      if(out_string != '') {
+      if(length(out_string) != 0) {
         out_string |> vroom::vroom_write_lines(path, append=append)
       }
 

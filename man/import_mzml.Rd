@@ -2,16 +2,14 @@
 % Please edit documentation in R/import_ms2_mzml.R
 \name{import_mzml}
 \alias{import_mzml}
-\title{The main function for parsing a fasta file}
+\title{Parse an mzML file}
 \usage{
 import_mzml(path = NULL)
 }
 \arguments{
-\item{path}{a character string of the path to the MGF formatted file}
-}
-\value{
-a tibble
+\item{path}{A character string of the path to the mzML formatted file}
 }
 \description{
-\code{import_mzml()} get the current regex
+\code{import_mzml()} a helper function to parse a given mzML file into a ms2spectra
+standardized data object for use among the tidyproteomics packages.
 }

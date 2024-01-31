@@ -1,15 +1,37 @@
-#' helper function to read in platform specific results
+#' Read a X!Tandem proteomic search results file
 #'
-#' @param x location of file to parse
+#' @description
+#' `import_xtandem()` is the helper function to import tandem ms search results
+#' into a standardized data table.
+#'
+#' @param path
+#' String path to file for importing
+#'
+#' @param cpus
+#' The number of cpus to use for importing
 #'
 #' @return a tibble
 #'
 import_xtandem <- function(
-    x,
+    path,
     cpus = 1
 ){
 
-  d <- x |> xml2::read_html()
+  # visible bindings
+  id <- NULL
+  spectrum_num <- NULL
+  psm_sequence <- NULL
+  label <- NULL
+  psm_protein <- NULL
+  expect <- NULL
+  mh <- NULL
+  y_ions <- NULL
+  b_ions <- NULL
+  psm_score <- NULL
+
+  if(!file.exists(path)){ cli::cli_abort(".. file {basename(path)} does not exist!") }
+
+  d <- path |> xml2::read_html()
   h <- d |> xml2::xml_find_all('.//group[@id]', flatten = FALSE)
 
   xml_dataframe <- function(x){x |> unlist() |> t() |> as.data.frame()}
@@ -58,10 +80,9 @@ import_xtandem <- function(
     dplyr::full_join(tbl_peptides, by = "spectrum_num") |>
     dplyr::mutate(psm_score = expect |> as.numeric() |> log10() * -1,
                   psm_mh = as.numeric(mh),
-                  psm_dp = as.numeric(y_ions) + as.numeric(b_ions) / stringr::str_length(psm_sequence),
-                  file = sub("\\..*", "", basename(x))) |>
+                  psm_dp = as.numeric(y_ions) + as.numeric(b_ions) / stringr::str_length(psm_sequence)) |>
     dplyr::group_by(spectrum_num) |>
-    dplyr::arrange(desc(psm_score)) |>
+    dplyr::arrange(dplyr::desc(psm_score)) |>
     dplyr::mutate(psm_rank = dplyr::row_number()) |>
     dplyr::ungroup() |>
     dplyr::mutate(origin = 'xtandem') |>
@@ -71,10 +92,16 @@ import_xtandem <- function(
 }
 
 
-#' helper function to read in platform specific results
+#' Format X!Tandem peptide strings
 #'
-#' @param sequence string
-#' @param modifications string
+#' @param sequence
+#' A peptide string
+#'
+#' @param modifications
+#' A string of modifications
+#'
+#' @param val_start
+#' A numeric value on where to start locating the modification on the peptide string
 #'
 #' @return string
 #'
@@ -93,7 +120,7 @@ xtandem_peptide <- function(
   for(i in 1:length(sequence)){
     if(i %in% val_locate){
       # xtandem can place multiple modifications on the same residue
-      res <- paste0("[", sequence[i], num_trunc(sum(val_masses[which(i == val_locate)]),2), "]")
+      res <- paste0("[", sequence[i], mspredictr::num_trunc(sum(val_masses[which(i == val_locate)]),2), "]")
       sequence[i] <- res
     }
     out <- paste0(out, sequence[i])

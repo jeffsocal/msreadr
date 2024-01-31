@@ -1,14 +1,16 @@
-#' Tidy-Quant data object print definition
+#' Help function to convert a spectra data object to a data.frame
 #'
-#' @param x rmfasta data object
-#' @param ... unused legacy
+#' @param x
+#' The spectra data object
 #'
-#' @return print object summary
+#' @param ...
+#' Unused legacy
 #'
 #' @exportS3Method
 #'
 as.data.frame.ms2spectra <- function(
-    x, ...
+    x,
+    ...
 ) {
 
   check_ms2spectra(x)

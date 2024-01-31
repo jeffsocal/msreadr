@@ -1,16 +1,42 @@
-#' The main function for parsing a fasta file
+#' Write an mzML spectrum file
 #'
 #' @description
-#' `import_mgf()` get the current regex
+#' `write_mzml()` write the contents of an ms2spectrum data object to an mzML
+#' formmated file.
 #'
-#' @param path a character string of the path to the MGF formatted file
-#' @return a tibble
+#' @param data
+#' An ms2spectra data object
+#'
+#' @param path
+#' A character string of the path to the mzML formatted file
+#'
+#' @return silent on success, an abort message on fail
+#'
 #' @export
 #'
+#' @examples
+#' #\dontrun{
+#' data <- path_to_example() |> read_spectra()
+#'
+#' data |> write_mzml("path_to_file.mzML")
+#' }
 write_mzml <- function(
     data = NULL,
     path = NULL
 ){
+
+  # visible binding
+  spectra <- NULL
+  seqNum <- NULL
+  peaks <- NULL
+  pre_rt <- NULL
+  pre_mz <- NULL
+  pre_z <- NULL
+  totIonCurrent <- NULL
+  scan_info <- NULL
+  lowMZ <- NULL
+  highMZ <- NULL
+  filename <- NULL
 
   check_ms2spectra(data)
 

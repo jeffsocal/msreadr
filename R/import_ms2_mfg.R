@@ -1,14 +1,27 @@
-#' The main function for parsing a fasta file
+#' Parse an MGF file
 #'
 #' @description
-#' `import_mgf()` get the current regex
+#' `import_mgf()` a helper function to parse a given MGF file into a ms2spectra
+#' standardized data object for use among the tidyproteomics packages.
 #'
-#' @param path a character string of the path to the MGF formatted file
-#' @return a tibble
+#' @param path
+#' A character string of the path to the MGF formatted file
 #'
 import_mgf <- function(
     path = NULL
 ){
+
+  # visible bindings
+  ms_event <- NULL
+  precursor_rt <- NULL
+  precursor_mz <- NULL
+  precursor_z <- NULL
+  precursor_intensity <- NULL
+  collision_energy <- NULL
+  injection_time <- NULL
+  ms_event_info <- NULL
+  precursor_mh <- NULL
+  peaks <- NULL
 
   cli::cli_div(theme = list(span.emph = list(color = "#ff4500")))
   if(is.null(path)) {cli::cli_abort(c("x" = "path is empty"))}
@@ -87,7 +100,7 @@ import_mgf <- function(
         }
       }
       out['precursor_mh'] <- mspredictr::mass_neutral(out['precursor_mz'] |> as.numeric(),
-                                          out['precursor_z'] |> as.numeric()) + proton_mass
+                                                      out['precursor_z'] |> as.numeric()) + proton_mass
       # clean up the peaks matrix
       dimnames(peaks) <- NULL
       colnames(peaks) <- c('mz', 'intensity')

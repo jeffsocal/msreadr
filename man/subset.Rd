@@ -4,17 +4,14 @@
 \alias{subset}
 \title{Create a data subset}
 \usage{
-subset(data = NULL, ..., rm.mbr = TRUE, .verbose = TRUE)
+subset(data = NULL, ..., .verbose = TRUE)
 }
 \arguments{
-\item{data}{ms2spectra data object}
+\item{data}{An ms2spectra data object}
 
-\item{...}{a three part expression (eg. x == a)}
+\item{...}{A three part expression (eg. x == a)}
 
-\item{.verbose}{a boolean}
-}
-\value{
-a tibble
+\item{.verbose}{A boolean to print messages}
 }
 \description{
 \code{subset()} is the main function for sub-setting spectra data from a ms2spectra
@@ -22,18 +19,6 @@ data-object based on a regular expression and targeted annotation. This function
 will return a smaller ms2spectra data-object.
 }
 \examples{
-library(dplyr, warn.conflicts = FALSE)
-library(msreadr_quo)
-
-# creates a subset of just Ribosomes, based on the string in the annotation
-# protein_description
-hela_proteins \%>\%
-   subset(description \%like\% "Ribosome") \%>\%
-   summary()
-
-# creates a subset without Ribosomes
-hela_proteins \%>\%
-   subset(!description \%like\% "Ribosome") \%>\%
-   summary()
+# creates a subset of just of spectra
 
 }

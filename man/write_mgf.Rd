@@ -2,16 +2,19 @@
 % Please edit documentation in R/write_mfg.R
 \name{write_mgf}
 \alias{write_mgf}
-\title{The main function for parsing a fasta file}
+\title{Write an MGF spectrum file}
 \usage{
 write_mgf(data = NULL, path = NULL)
 }
 \arguments{
-\item{path}{a character string of the path to the MGF formatted file}
+\item{data}{An ms2spectra data object}
+
+\item{path}{A character string of the path to the MGF formatted file}
 }
 \value{
-a tibble
+silent on success, an abort message on fail
 }
 \description{
-\code{import_mgf()} get the current regex
+\code{write_mgf()} write the contents of an ms2spectrum data object to an MGF
+formmated file.
 }

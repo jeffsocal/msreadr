@@ -2,18 +2,15 @@
 % Please edit documentation in R/as.data.frame.R
 \name{as.data.frame.ms2spectra}
 \alias{as.data.frame.ms2spectra}
-\title{Tidy-Quant data object print definition}
+\title{Help function to convert a spectra data object to a data.frame}
 \usage{
 \method{as.data.frame}{ms2spectra}(x, ...)
 }
 \arguments{
-\item{x}{rmfasta data object}
+\item{x}{The spectra data object}
 
-\item{...}{unused legacy}
-}
-\value{
-print object summary
+\item{...}{Unused legacy}
 }
 \description{
-Tidy-Quant data object print definition
+Help function to convert a spectra data object to a data.frame
 }

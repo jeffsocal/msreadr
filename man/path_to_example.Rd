@@ -6,9 +6,6 @@
 \usage{
 path_to_example()
 }
-\value{
-print the table to console
-}
 \description{
 Helper function for displaying path to data
 }

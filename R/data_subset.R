@@ -5,32 +5,26 @@
 #' data-object based on a regular expression and targeted annotation. This function
 #' will return a smaller ms2spectra data-object.
 #'
-#' @param data ms2spectra data object
-#' @param ... a three part expression (eg. x == a)
-#' @param .verbose a boolean
+#' @param data
+#' An ms2spectra data object
 #'
-#' @return a tibble
+#' @param ...
+#' A three part expression (eg. x == a)
+#'
+#' @param .verbose
+#' A boolean to print messages
+#'
 #' @export
 #'
 #' @examples
-#' library(dplyr, warn.conflicts = FALSE)
-#' library(msreadr_quo)
+#' # creates a subset of just of spectra
+#' data <- path_to_example() |> read_spectra()
 #'
-#' # creates a subset of just Ribosomes, based on the string in the annotation
-#' # protein_description
-#' hela_proteins %>%
-#'    subset(description %like% "Ribosome") %>%
-#'    summary()
-#'
-#' # creates a subset without Ribosomes
-#' hela_proteins %>%
-#'    subset(!description %like% "Ribosome") %>%
-#'    summary()
+#' data |> subset(ms_event == 3)
 #'
 subset <- function(
     data = NULL,
     ...,
-    rm.mbr = TRUE,
     .verbose = TRUE
 ){
 

@@ -2,17 +2,17 @@
 % Please edit documentation in R/data_object.R
 \name{check_ms2spectra}
 \alias{check_ms2spectra}
-\title{Check the integrity of a msfastar data object}
+\title{Check the integrity of a ms2spectra data object}
 \usage{
 check_ms2spectra(x = NULL)
 }
 \arguments{
-\item{data}{msfastar data object}
+\item{x}{An ms2spectra data object}
 }
 \value{
 silent on success, an abort message on fail
 }
 \description{
-\code{check_fasta()} is a helper function that checks the structure and contents of
-a msfastar data object
+\code{check_ms2spectra()} is a helper function that checks the structure and contents of
+an ms2spectra data object
 }

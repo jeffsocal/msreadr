@@ -2,18 +2,20 @@
 % Please edit documentation in R/import_psms_xtandem.R
 \name{xtandem_peptide}
 \alias{xtandem_peptide}
-\title{helper function to read in platform specific results}
+\title{Format X!Tandem peptide strings}
 \usage{
 xtandem_peptide(sequence = NULL, modifications = NULL, val_start = 1)
 }
 \arguments{
-\item{sequence}{string}
+\item{sequence}{A peptide string}
 
-\item{modifications}{string}
+\item{modifications}{A string of modifications}
+
+\item{val_start}{A numeric value on where to start locating the modification on the peptide string}
 }
 \value{
 string
 }
 \description{
-helper function to read in platform specific results
+Format X!Tandem peptide strings
 }

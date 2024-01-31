@@ -1,6 +1,5 @@
 #' Helper function for displaying path to data
 #'
-#' @return print the table to console
 #' @export
 #'
 path_to_example <- function(

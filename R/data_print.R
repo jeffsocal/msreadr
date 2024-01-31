@@ -1,20 +1,22 @@
-#' Tidy-Quant data object print definition
+#' A helper function for the print definition of a ms2spectra object
 #'
-#' @param x rmfasta data object
-#' @param ... unused legacy
+#' @param x
+#' An ms2spectra data object
 #'
-#' @return print object summary
+#' @param ...
+#' Unused legacy
 #'
 #' @exportS3Method
 #'
 print.ms2spectra <- function(
-    x, ...
+    x,
+    ...
 ) {
 
   check_ms2spectra(x)
 
   if(x |> length() == 13) {
-    x.size <- as.numeric(object.size(x))
+    x.size <- as.numeric(utils::object.size(x))
     cli::cli_h2(cli::style_bold("{.emph R MS SPECTRA data object}"))
     println("Memory", glue::glue("{prettyunits::pretty_bytes(x.size)}"))
     println("Scans", x$precursor_mz |> length())

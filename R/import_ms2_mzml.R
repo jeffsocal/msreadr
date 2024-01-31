@@ -1,14 +1,31 @@
-#' The main function for parsing a fasta file
+#' Parse an mzML file
 #'
 #' @description
-#' `import_mzml()` get the current regex
+#' `import_mzml()` a helper function to parse a given mzML file into a ms2spectra
+#' standardized data object for use among the tidyproteomics packages.
 #'
-#' @param path a character string of the path to the MGF formatted file
-#' @return a tibble
+#' @param path
+#' A character string of the path to the mzML formatted file
 #'
 import_mzml <- function(
     path = NULL
 ){
+
+  #visible bindings
+  precursorCharge <- NULL
+  seqNum <- NULL
+  acquisitionNum <- NULL
+  msLevel <- NULL
+  filterString <- NULL
+  retentionTime <- NULL
+  precursorMZ <- NULL
+  precursorIntensity <- NULL
+  collisionEnergy <- NULL
+  injectionTime <- NULL
+  ms_event_level <- NULL
+  precursor_mz <- NULL
+  precursor_z <- NULL
+  precursor_mh <- NULL
 
   cli::cli_div(theme = list(span.emph = list(color = "#ff4500")))
   if(is.null(path)) {cli::cli_abort(c("x" = "path is empty"))}

@@ -2,18 +2,15 @@
 % Please edit documentation in R/data_print.R
 \name{print.ms2spectra}
 \alias{print.ms2spectra}
-\title{Tidy-Quant data object print definition}
+\title{A helper function for the print definition of a ms2spectra object}
 \usage{
 \method{print}{ms2spectra}(x, ...)
 }
 \arguments{
-\item{x}{rmfasta data object}
+\item{x}{An ms2spectra data object}
 
-\item{...}{unused legacy}
-}
-\value{
-print object summary
+\item{...}{Unused legacy}
 }
 \description{
-Tidy-Quant data object print definition
+A helper function for the print definition of a ms2spectra object
 }

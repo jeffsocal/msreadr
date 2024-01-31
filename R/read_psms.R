@@ -1,13 +1,22 @@
-#' Table of PSMs results
+#' Read a proteomic search results file from Comet, MS Amanda, OMSSA, Sage and X!Tandem
 #'
 #' @description
-#' `read_psms()` get search results from a variety of platforms
+#' `read_psms()` is the main function for importing tandem ms search results
+#' into a standardized data table from various platforms.
 #'
-#' @param path location of file to parse
-#' @param platform as character string
+#' @param path_to_psms
+#' String path to file for importing
+#'
+#' @param path_to_mzml
+#' The number of cpus to use for importing
+#'
+#' @param platform
+#' The number of cpus to use for importing
+#'
+#' @param cpus
+#' The number of cpus to use for importing
 #'
 #' @return a tibble
-#' @export
 #'
 read_psms <- function(
     path_to_psms = NULL,
@@ -31,9 +40,6 @@ read_psms <- function(
   switch (platform,
           comet = {
             out <- import_comet(path_to_psms, cpus)
-          },
-          tide = {
-            out <- read_tide(path_to_psms, cpus)
           },
           ms_amanda = {
             out <- import_msamanda(path_to_psms, cpus)
