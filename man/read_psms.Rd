@@ -2,7 +2,7 @@
 % Please edit documentation in R/read_psms.R
 \name{read_psms}
 \alias{read_psms}
-\title{Read a proteomic search results file}
+\title{Read a proteomic search results file from Comet, MS Amanda, OMSSA, Sage and X!Tandem}
 \usage{
 read_psms(
   path_to_psms = NULL,

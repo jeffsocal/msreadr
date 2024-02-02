@@ -18,3 +18,10 @@ silent on success, an abort message on fail
 \code{write_mzml()} write the contents of an ms2spectrum data object to an mzML
 formmated file.
 }
+\examples{
+\dontrun{
+data <- path_to_example() |> read_spectra()
+
+data |> write_mzml("path_to_file.mzML")
+}
+}

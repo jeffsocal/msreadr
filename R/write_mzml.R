@@ -15,7 +15,7 @@
 #' @export
 #'
 #' @examples
-#' #\dontrun{
+#' \dontrun{
 #' data <- path_to_example() |> read_spectra()
 #'
 #' data |> write_mzml("path_to_file.mzML")

@@ -15,3 +15,11 @@ read_spectra(path = NULL, include_spectra = TRUE)
 \code{read_spectra()} is the main function for parse a given mzML or MGF file into
 a ms2spectra standardized data object for use among the tidyproteomics packages.
 }
+\examples{
+# read in the data
+data <- path_to_example() |> read_spectra()
+
+# print the data object
+data
+
+}

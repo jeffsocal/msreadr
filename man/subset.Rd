@@ -20,5 +20,8 @@ will return a smaller ms2spectra data-object.
 }
 \examples{
 # creates a subset of just of spectra
+data <- path_to_example() |> read_spectra()
+
+data |> subset(ms_event == 3)
 
 }

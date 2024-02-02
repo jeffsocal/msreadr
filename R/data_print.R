@@ -17,7 +17,7 @@ print.ms2spectra <- function(
 
   if(x |> length() == 13) {
     x.size <- as.numeric(utils::object.size(x))
-    cli::cli_h2(cli::style_bold("{.emph R MS SPECTRA data object}"))
+    cli::cli_h2(cli::style_bold("{.emph MS SPECTRA data object}"))
     println("Memory", glue::glue("{prettyunits::pretty_bytes(x.size)}"))
     println("Scans", x$precursor_mz |> length())
   } else {
@@ -50,6 +50,6 @@ print.ms2spectra <- function(
 #'
 println <- function(name = '',
                     message = '',
-                    pad_length = 15) {
+                    pad_length = 20) {
   cat(stringr::str_pad(name, pad_length, 'right'), message, "\n")
 }

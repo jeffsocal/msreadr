@@ -15,7 +15,7 @@
 #' @export
 #'
 #' @examples
-#' #\dontrun{
+#' \dontrun{
 #' data <- path_to_example() |> read_spectra()
 #'
 #' data |> write_mgf("path_to_file.mgf")

@@ -18,3 +18,11 @@ silent on success, an abort message on fail
 \code{write_mgf()} write the contents of an ms2spectrum data object to an MGF
 formmated file.
 }
+\examples{
+\dontrun{
+data <- path_to_example() |> read_spectra()
+
+data |> write_mgf("path_to_file.mgf")
+}
+
+}

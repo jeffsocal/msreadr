@@ -4,7 +4,7 @@
 \alias{println}
 \title{Helper function for printing messages}
 \usage{
-println(name = "", message = "", pad_length = 15)
+println(name = "", message = "", pad_length = 20)
 }
 \arguments{
 \item{name}{string}
