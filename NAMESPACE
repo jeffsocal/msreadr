@@ -2,9 +2,9 @@
 
 S3method(as.data.frame,ms2spectra)
 S3method(print,ms2spectra)
+S3method(subset,ms2spectra)
 export("%like%")
 export(path_to_example)
 export(read_spectra)
-export(subset)
 export(write_mgf)
 export(write_mzml)

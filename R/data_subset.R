@@ -14,7 +14,7 @@
 #' @param .verbose
 #' A boolean to print messages
 #'
-#' @export
+#' @exportS3Method
 #'
 #' @examples
 #' # creates a subset of just of spectra
@@ -22,7 +22,7 @@
 #'
 #' data |> subset(ms_event == 3)
 #'
-subset <- function(
+subset.ms2spectra <- function(
     data = NULL,
     ...,
     .verbose = TRUE

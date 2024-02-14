@@ -54,7 +54,7 @@ import_omssa <- function(
     dplyr::ungroup() |>
     dplyr::select(!`Spectrum number`)
 
-  out$psm_sequence <- out$psm_sequence |> lapply(str_clean) |> unlist()
+  out$psm_sequence <- out$psm_sequence |> lapply(mspredictr::str_sequence) |> unlist()
   out <- out |>
     dplyr::mutate(psm_peptide = purrr::map2(psm_sequence, Mods, omssa_peptide) |> unlist())
 

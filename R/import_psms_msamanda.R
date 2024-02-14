@@ -51,13 +51,13 @@ import_msamanda <- function(
     )
 
   # normalize peptide
-  out$psm_sequence <- out$psm_sequence |> lapply(str_clean) |> unlist()
+  out$psm_sequence <- out$psm_sequence |> stringr::str_to_upper()
   out <- out |>
     dplyr::mutate(psm_peptide = purrr::map2(psm_sequence, `Modifications`, ms_amanda_peptide) |> unlist()) |>
     dplyr::select(!c('Filename','Scan Number'))
   # compute psm mass
   proton_mass <- mspredictr::mass_proton()
-  out$psm_mh <- out$psm_peptide |> lapply(peptide_mass) |> unlist() + proton_mass
+  out$psm_mh <- out$psm_peptide |> lapply(mspredictr::peptide_mass) |> unlist() + proton_mass
 
   return(out)
 }

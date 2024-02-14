@@ -78,7 +78,8 @@ import_xtandem <- function(
 
   tbl <- tbl_proteins |>
     dplyr::full_join(tbl_peptides, by = "spectrum_num") |>
-    dplyr::mutate(psm_score = expect |> as.numeric() |> log10() * -1,
+    dplyr::mutate(#psm_score = expect |> as.numeric() |> log10() * -1,
+                  psm_score = hyperscore |> as.numeric(),
                   psm_mh = as.numeric(mh),
                   psm_dp = as.numeric(y_ions) + as.numeric(b_ions) / stringr::str_length(psm_sequence)) |>
     dplyr::group_by(spectrum_num) |>

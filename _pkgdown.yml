@@ -12,7 +12,7 @@ reference:
     spectra from proteomics and metabolomics experiments.
   contents:
   - read_spectra
-  - subset
+  - subset.ms2spectra
   - as.data.frame.ms2spectra
 
 - title: Write mass spectra data files

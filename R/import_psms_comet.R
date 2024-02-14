@@ -39,7 +39,8 @@ import_comet <- function(
     show_col_types = FALSE
   ) |>
     dplyr::mutate(
-      psm_score = -log10(`e-value`),
+      # psm_score = -log10(`e-value`),
+      psm_score = xcorr,
       # 1Th correction to get [M+H]+
       psm_mh = calc_neutral_mass + proton_mass,
       psm_dp = ions_matched / ions_total
@@ -52,7 +53,7 @@ import_comet <- function(
       psm_protein = protein
     )
 
-  out$psm_peptide <- out$psm_peptide |> lapply(str_peptide) |> unlist()
+  out$psm_peptide <- out$psm_peptide |> lapply(mspredictr::str_peptide) |> unlist()
 
   return(out)
 }

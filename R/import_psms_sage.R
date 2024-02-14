@@ -50,8 +50,8 @@ import_sage <- function(
     dplyr::select(dplyr::matches('file|ms_event|origin|decoy|psm')) |>
     dplyr::select(!filename)
 
-  out$psm_peptide <- out$psm_peptide |> lapply(str_peptide) |> unlist()
-  out$psm_sequence <- out$psm_peptide |> lapply(str_sequence) |> unlist()
+  out$psm_peptide <- out$psm_peptide |> lapply(mspredictr::str_peptide) |> unlist()
+  out$psm_sequence <- out$psm_peptide |> lapply(mspredictr::str_sequence) |> unlist()
 
   return(out)
 }
