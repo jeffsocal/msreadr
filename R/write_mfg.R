@@ -37,7 +37,8 @@ write_mgf <- function(
   }
 
   n_peaks <- length(data$peaks)
-  cli::cli_progress_bar(glue::glue("Writing MGF file {basename(path)}"), total = n_peaks)
+  cli::cli_progress_bar(glue::glue("Writing MGF file {basename(path)}"),
+                        total = n_peaks, clear = FALSE)
 
   tryCatch(
     {
@@ -78,4 +79,5 @@ write_mgf <- function(
       cli::cli_alert_warning("WARNING: {cond}")
     }
   )
+  cli::cli_alert_info('... done')
 }

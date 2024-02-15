@@ -36,7 +36,6 @@ write_mzml <- function(
   scan_info <- NULL
   lowMZ <- NULL
   highMZ <- NULL
-  filename <- NULL
 
   check_ms2spectra(data)
 
@@ -66,51 +65,49 @@ write_mzml <- function(
                   "isolationWindowUpperOffset", "scanWindowLowerLimit",
                   "scanWindowUpperLimit")
 
+
+  xml_header <- tibble::tibble(
+    seqNum = data$spectrum_num,
+    acquisitionNum = seqNum * 2,
+    msLevel = 2,
+    polarity = 1,
+    peaksCount = lapply(data$peaks, nrow) |> unlist(),
+    totIonCurrent = lapply(data$peaks, function(x){sum(x[,2])}) |> unlist(),
+    retentionTime = data$precursor_rt,
+    basePeakMZ = lapply(data$peaks, function(x){sum(x[,2])}) |> unlist(),
+    basePeakIntensity = lapply(data$peaks, function(x){x[which(x[,2] == max(x[,2]))[1],1]}) |> unlist(),
+    collisionEnergy = 28,
+    ionisationEnergy = 0,
+    lowMZ = lapply(data$peaks, function(x){min(x[,1])}) |> unlist(),
+    highMZ = lapply(data$peaks, function(x){max(x[,1])}) |> unlist(),
+    precursorScanNum = seqNum,
+    precursorMZ = data$precursor_mz,
+    precursorCharge = data$precursor_z,
+    precursorIntensity = totIonCurrent * 3.14,
+    mergedScan = as.numeric(NA),
+    mergedResultScanNum = as.numeric(NA),
+    mergedResultStartScanNum = as.numeric(NA),
+    mergedResultEndScanNum = as.numeric(NA),
+    injectionTime = 100,
+    filterString = data$ms_event_info,
+    spectrumId = seqNum |> as.character(),
+    centroided = TRUE,
+    ionMobilityDriftTime = as.numeric(NA),
+    isolationWindowTargetMZ = data$precursor_mz,
+    isolationWindowLowerOffset = 0.6,
+    isolationWindowUpperOffset = 0.6,
+    scanWindowLowerLimit = ceiling(lowMZ / 50) * 50,
+    scanWindowUpperLimit = floor(highMZ / 50) * 50
+  ) |>
+    dplyr::select(dplyr::all_of(colsneeded)) |>
+    as.data.frame()
+
   tryCatch(
     {
-      xml_header <- spectra |>
-        dplyr::mutate(
-          seqNum = dplyr::row_number(),
-          acquisitionNum = seqNum * 2,
-          msLevel = 2,
-          polarity = 1,
-          peaksCount = purrr::map(peaks, nrow) |> unlist(),
-          totIonCurrent = purrr::map(peaks, function(x){sum(x[,2])}) |> unlist(),
-          retentionTime = pre_rt,
-          basePeakMZ = purrr::map(peaks, function(x){sum(x[,2])}) |> unlist(),
-          basePeakIntensity = purrr::map(peaks, function(x){x[which(x[,2] == max(x[,2]))[1],1]}) |> unlist(),
-          collisionEnergy = 28,
-          ionisationEnergy = 0,
-          lowMZ = purrr::map(peaks, function(x){min(x[,1])}) |> unlist(),
-          highMZ = purrr::map(peaks, function(x){max(x[,1])}) |> unlist(),
-          precursorScanNum = seqNum,
-          precursorMZ = pre_mz,
-          precursorCharge = pre_z,
-          precursorIntensity = totIonCurrent * 3.14,
-          mergedScan = as.numeric(NA),
-          mergedResultScanNum = as.numeric(NA),
-          mergedResultStartScanNum = as.numeric(NA),
-          mergedResultEndScanNum = as.numeric(NA),
-          injectionTime = 100,
-          filterString = scan_info,
-          spectrumId = seqNum,
-          centroided = TRUE,
-          ionMobilityDriftTime = as.numeric(NA),
-          isolationWindowTargetMZ = pre_mz,
-          isolationWindowLowerOffset = 0.6,
-          isolationWindowUpperOffset = 0.6,
-          scanWindowLowerLimit = ceiling(lowMZ / 50) * 50,
-          scanWindowUpperLimit = floor(highMZ / 50) * 50
-        ) |>
-        dplyr::select(dplyr::all_of(colsneeded))
-
-      xml_spectra <- spectra |>
-        dplyr::select(peaks) |>
-        dplyr::mutate( peaks = purrr::map(peaks, as.matrix) )
-
-      mzR::writeMSData(header = xml_header |> as.data.frame(),
-                       object = xml_spectra$peaks,
-                       file = filename)
+      mzR::writeMSData(
+        object = data$peaks,
+        header = xml_header,
+        file = path)
 
       cli::cli_progress_done()
 
