@@ -4,12 +4,14 @@
 \alias{as.data.frame.ms2spectra}
 \title{Help function to convert a spectra data object to a data.frame}
 \usage{
-\method{as.data.frame}{ms2spectra}(x, ...)
+\method{as.data.frame}{ms2spectra}(x, ..., .data = c("combined", "ms1", "ms2"))
 }
 \arguments{
 \item{x}{The spectra data object}
 
 \item{...}{Unused legacy}
+
+\item{.data}{The ms2spectra data to extract as a data.frame}
 }
 \description{
 Help function to convert a spectra data object to a data.frame

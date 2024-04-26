@@ -15,25 +15,37 @@ print.ms2spectra <- function(
 
   check_ms2spectra(x)
 
-  if(x |> length() == 13) {
+  parts <- names(x)
+
+  if(x |> length() > 1 & x[[2]] |> nrow() > 0) {
     x.size <- as.numeric(utils::object.size(x))
     cli::cli_h2(cli::style_bold("{.emph MS SPECTRA data object}"))
     println("Memory", glue::glue("{prettyunits::pretty_bytes(x.size)}"))
-    println("Scans", x$precursor_mz |> length())
+
+    for(part in intersect(parts, c("ms1", "ms2"))){
+
+      y <- x[[part]]
+      if(length(y) == 0) { next }
+
+      println(glue::glue("{toupper(part)} Scans"), y |> nrow())
+      rt <- y$ms_event_time |> round(2) |> range()
+      println("  LC time", glue::glue("{rt[1]} - {rt[2]} (sec)"))
+      if(part == 'ms1'){
+        info <- y$ms_event_info |> unique()
+        for(i in 1:min(3, length(info))){
+          println(paste0("  ~ ", info[i]))
+        }
+      }
+
+      if(part == 'ms2'){
+        mz <- y$precursor_mz |> round(2) |> range()
+        println("  precursors", glue::glue("{mz[1]} - {mz[2]} (mz)"))
+      }
+
+    }
   } else {
     cli::cli_abort("No data in object")
   }
-
-  ab <- x$precursor_intensity |> log10() |> round(1) |> range()
-  rt <- x$precursor_rt |> round(2) |> range()
-  mz <- x$precursor_mz |> round(4) |> range()
-  z <- unique(x$precursor_z)
-
-  println("Precursor")
-  println("  Intensity", glue::glue("{ab[1]} - {ab[2]} (log10)"))
-  println("  LC time", glue::glue("{rt[1]} - {rt[2]} (sec)"))
-  println("  M/Z", glue::glue("{mz[1]} - {mz[2]}"))
-  println("  Z", glue::glue("{z}"))
 
   println("")
   invisible(x)

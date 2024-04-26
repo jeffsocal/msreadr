@@ -5,7 +5,7 @@
 #' data-object based on a regular expression and targeted annotation. This function
 #' will return a smaller ms2spectra data-object.
 #'
-#' @param data
+#' @param x
 #' An ms2spectra data object
 #'
 #' @param ...
@@ -20,57 +20,48 @@
 #' # creates a subset of just of spectra
 #' data <- path_to_example() |> read_spectra()
 #'
+#' data |> print()
+#'
 #' data |> subset(ms_event == 3)
 #'
+#' data |> subset(precursor_mz > 400)
+#'
 subset.ms2spectra <- function(
-    data = NULL,
+    x = NULL,
     ...,
     .verbose = TRUE
 ){
 
   # visible bindings
-  sample_id <- NULL
+  ms_event <- NULL
 
-  check_ms2spectra(data)
+  check_ms2spectra(x)
   str_quo <- msreadr_quo(...)
-  if(is.null(str_quo)) { return(data) }
+  if(is.null(str_quo)) { return(x) }
 
   variable <- str_quo[['variable']]
-  operator <- str_quo[['operator']]
-  value <- str_quo[['value']]
-  inverse <- str_quo[['inverse']]
-  inverse_str <- ''
-  if(inverse == TRUE) { inverse_str <- '!' }
-
-  if(!variable %in% names(data)){
-    cli::cli_div(theme = list(span.emph = list(color = "#ff4500")))
-    cli::cli_abort("data does not contain the field {.emph {variable}}. Use one of {.emph {names(data)}}")
+  get_setname <- function(x, variable){
+    for(set in intersect(names(x), c("ms1", "ms2"))){
+      if(variable %in% names(x[[set]])){
+        return(set)
+      }
+    }
+    cli::cli_abort("{.emph {variable}} not a valid variable")
   }
 
-  if(.verbose == TRUE) {
-    cli::cli_text("")
-    cli::cli_div(theme = list(span.emph = list(color = "#ff4500"), span.info = list(color = "blue")))
-    cli::cli_progress_step("Subsetting data: {.emph {inverse_str}{variable}} {.info {operator}} {.emph {value}}")
-  }
+  data_set <- get_setname(x, variable)
+  x[[data_set]] <- subset_helper(x[[data_set]], str_quo, .verbose)
 
-  operator <- rlang::arg_match(operator, c("<","<=",">",">=","==","!=","%like%"))
-  if(is.null(data) || is.null(variable) || is.null(value)) {return(data)}
+  scan_range <- x[[data_set]]$ms_event |> range()
+  other_set <- setdiff(intersect(c('ms1','ms2'), names(x)), data_set)
 
-  w <- c()
-  if(operator == "<"){ w <- which(data[[variable]] < value) }
-  else if(operator == ">"){ w <- which(data[[variable]] > value) }
-  else if(operator == "<="){ w <- which(data[[variable]] <= value) }
-  else if(operator == ">="){ w <- which(data[[variable]] >= value) }
-  else if(operator == "=="){ w <- which(data[[variable]] == value) }
-  else if(operator == "!="){ w <- which(data[[variable]] != value) }
-
-  if(length(w) > 0){
-    cli::cli_alert_info(".. found {length(w)} spectra")
-    data <- data |> lapply(function(x, w){x[w]}, w)
+  if(length(other_set) == 1){
+    x[[other_set]] <- x[[other_set]] |>
+      dplyr::filter(ms_event >= (scan_range[1] - 5), ms_event <= (scan_range[2] + 5))
   }
 
   cli::cli_progress_done()
-  return(ms2spectra(data))
+  return(ms2spectra(x))
 }
 
 #' Helper function to subset a data frame
@@ -143,7 +134,65 @@ msreadr_quo_name <- function(...){
   grepl(b, a, ignore.case = T)
 }
 
-# #' @export
-# `%!like%` <- function(a, b) {
-#   !grepl(b, a, ignore.case = T)
-# }
+#' Helper function to do the subsetting ...
+#'
+#' @param tbl ... the data object
+#' @param str_quo ... a quo
+#' @param .verbose ... T/F to print progress
+#'
+#' @return a character string
+#'
+subset_helper <- function(
+    tbl = NULL,
+    str_quo = NULL,
+    .verbose = TRUE
+){
+
+  variable <- str_quo[['variable']]
+  operator <- str_quo[['operator']]
+  value <- str_quo[['value']]
+  inverse <- str_quo[['inverse']]
+  inverse_str <- ''
+
+  if(inverse == TRUE) { inverse_str <- '!' }
+
+  if(!variable %in% names(tbl)){
+    cli::cli_div(theme = list(span.emph = list(color = "#ff4500")))
+    cli::cli_abort("tbl does not contain the field {.emph {variable}}. Use one of {.emph {names(tbl)}}")
+  }
+
+
+  operator <- rlang::arg_match(operator, c("<","<=",">",">=","==","!=","%like%"))
+  if(is.null(tbl) || is.null(variable) || is.null(value)) {return(tbl)}
+
+  w <- c()
+  if(operator == "<"){ w <- which(tbl[[variable]] < value) }
+  else if(operator == ">"){ w <- which(tbl[[variable]] > value) }
+  else if(operator == "<="){ w <- which(tbl[[variable]] <= value) }
+  else if(operator == ">="){ w <- which(tbl[[variable]] >= value) }
+  else if(operator == "=="){ w <- which(tbl[[variable]] == value) }
+  else if(operator == "!="){ w <- which(tbl[[variable]] != value) }
+
+  if(length(w) > 0){
+    if(.verbose == TRUE) {
+      cli::cli_div(theme = list(span.emph = list(color = "#ff4500"), span.info = list(color = "blue")))
+      cli::cli_progress_step("Subsetting data: {.emph {inverse_str}{variable}} {.info {operator}} {.emph {value}}")
+    }
+
+    cli::cli_alert_info(".. found {length(w)} spectra")
+    # can't recombine here as ms2 has a peak list
+    tbl_all <- tbl |> lapply(function(x, w){x[w]}, w)
+    tbl_peaks <- tbl_all$peaks
+    tbl_all$peaks <- NULL
+    tbl_all <- tbl_all |> dplyr::bind_cols()
+    tbl_all$peaks <- tbl_peaks
+    tbl <- tbl_all
+  } else {
+    cli::cli_div(theme = list(span.emph = list(color = "#ff4500"), span.info = list(color = "blue")))
+    cli::cli_alert_warning("data not subsetted for {.emph {inverse_str}{variable}} {.info {operator}} {.emph {value}}")
+  }
+
+  return(tbl)
+}
+
+

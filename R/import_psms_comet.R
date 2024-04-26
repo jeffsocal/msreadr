@@ -27,6 +27,7 @@ import_comet <- function(
   plain_peptide <- NULL
   protein <- NULL
   str_peptide <- NULL
+  xcorr <- NULL
 
   if(!file.exists(path)){ cli::cli_abort(".. file {basename(path)} does not exist!") }
 

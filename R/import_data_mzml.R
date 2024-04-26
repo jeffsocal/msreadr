@@ -20,9 +20,12 @@ import_mzml <- function(
   retentionTime <- NULL
   precursorMZ <- NULL
   precursorIntensity <- NULL
+  isolationWindowTargetMZ <- NULL
+  isolationWindowLowerOffset <- NULL
+  isolationWindowUpperOffset <- NULL
   collisionEnergy <- NULL
   injectionTime <- NULL
-  ms_event_level <- NULL
+  ms_level <- NULL
   precursor_mz <- NULL
   precursor_z <- NULL
   precursor_mh <- NULL
@@ -43,28 +46,53 @@ import_mzml <- function(
     obj_mzml <- path |> mzR::openMSfile()
 
     ## Get the header a data frame of attributes
-    tbl_hdr <- mzR::header(obj_mzml) |>
+    data_lcms <- mzR::header(obj_mzml) |>
       dplyr::mutate(precursorCharge = ifelse(precursorCharge == 0, 2, precursorCharge)) |>
       tibble::as_tibble() |>
       dplyr::select(
         spectrum_num = seqNum,
+        ms_level = msLevel,
         ms_event = acquisitionNum,
-        ms_event_level = msLevel,
         ms_event_info = filterString,
-        precursor_rt = retentionTime,
+        ms_event_time = retentionTime,
+        ms_injection_time = injectionTime,
         precursor_mz = precursorMZ,
         precursor_z = precursorCharge,
         precursor_intensity = precursorIntensity,
-        collision_energy = collisionEnergy,
-        injection_time = injectionTime
+        precursor_isolation_target = isolationWindowTargetMZ,
+        precursor_isolation_lower = isolationWindowLowerOffset,
+        precursor_isolation_upper = isolationWindowUpperOffset,
+        precursor_collision_energy = collisionEnergy
       ) |>
       ## Get the spectra a list of mz and intensity
-      dplyr::mutate(peaks = mzR::spectra(obj_mzml)) |>
-      dplyr::filter(ms_event_level == 2) |>
-      dplyr::mutate(precursor_mh = purrr::map2(precursor_mz, precursor_z, mspredictr::mass_neutral) |> unlist() + proton_mass,
-                    file = sub("\\.mzML", "", basename(path))) |>
-      dplyr::relocate(precursor_mh, .before = 'peaks') |>
-      dplyr::relocate(file)
+      dplyr::mutate(peaks = mzR::spectra(obj_mzml))
+
+    data_lcms$peaks <- data_lcms$peaks |> lapply(function(x){x |> as.data.frame()})
+
+    ms1 <- NULL
+    ms2 <- NULL
+
+    if(1 %in% data_lcms$ms_level){
+      ms1 <- data_lcms |> dplyr::filter(ms_level == 1) |>
+        dplyr::select(!dplyr::matches('precursor')) |>
+        dplyr::mutate(spectrum_num = dplyr::row_number())
+    }
+
+    if(2 %in% data_lcms$ms_level){
+      ms2 <- data_lcms |> dplyr::filter(ms_level == 2) |> dplyr::mutate(
+        precursor_mh = purrr::map2(precursor_mz, precursor_z, mspredictr::mass_neutral) |> unlist() + proton_mass) |>
+        dplyr::relocate(precursor_mh, .before = 'peaks') |>
+        dplyr::mutate(spectrum_num = dplyr::row_number())
+    }
+
+    out <- list(
+      file = sub("\\.mzML", "", basename(path)),
+      ms1 = NULL,
+      ms2 = NULL
+    )
+
+    out$ms1 <- ms1
+    out$ms2 <- ms2
 
   }, error = function(err) {
     err = as.character(as.vector(err))
@@ -72,5 +100,5 @@ import_mzml <- function(
     cli::cli_abort(err)
   })
 
-  return(tbl_hdr)
+  return(out)
 }

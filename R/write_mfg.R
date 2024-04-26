@@ -27,6 +27,8 @@ write_mgf <- function(
 ){
 
   check_ms2spectra(data)
+  if(!'ms2' %in% names(data)) { cli::cli_abort("No ms2 spectra in data object ...") }
+  data <- data$ms2
   if(!'peaks' %in% names(data)) { cli::cli_abort("No spectrum peaks in data object ...") }
 
   cli::cli_div(theme = list(span.emph = list(color = "#ff4500")))
@@ -53,7 +55,7 @@ write_mgf <- function(
         out_string <- c(out_string, "BEGIN IONS")
         out_string <- c(out_string, glue::glue("TITLE={data$ms_event_info[i]}"))
         out_string <- c(out_string, glue::glue("SCANS={data$ms_event[i]}"))
-        out_string <- c(out_string, glue::glue("RTINSECONDS={data$precursor_rt[i]}"))
+        out_string <- c(out_string, glue::glue("RTINSECONDS={data$ms_event_time[i]}"))
         out_string <- c(out_string, glue::glue("PEPMASS={data$precursor_mz[i]} {data$precursor_intensity[i]}"))
         out_string <- c(out_string, glue::glue("CHARGE=+{data$precursor_z[i]}"))
         for(ii in 1:dim(data$peaks[[i]])[1]){

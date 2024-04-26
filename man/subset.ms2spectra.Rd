@@ -4,10 +4,10 @@
 \alias{subset.ms2spectra}
 \title{Create a data subset}
 \usage{
-\method{subset}{ms2spectra}(data = NULL, ..., .verbose = TRUE)
+\method{subset}{ms2spectra}(x = NULL, ..., .verbose = TRUE)
 }
 \arguments{
-\item{data}{An ms2spectra data object}
+\item{x}{An ms2spectra data object}
 
 \item{...}{A three part expression (eg. x == a)}
 
@@ -22,6 +22,10 @@ will return a smaller ms2spectra data-object.
 # creates a subset of just of spectra
 data <- path_to_example() |> read_spectra()
 
+data |> print()
+
 data |> subset(ms_event == 3)
+
+data |> subset(precursor_mz > 400)
 
 }

@@ -48,5 +48,5 @@ read_spectra <- function(
     tbl_spectra <- tbl_spectra |> dplyr::select(-peaks)
   }
 
-  return(ms2spectra(tbl_spectra))
+  return(tbl_spectra |> ms2spectra())
 }

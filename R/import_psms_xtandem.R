@@ -28,6 +28,8 @@ import_xtandem <- function(
   y_ions <- NULL
   b_ions <- NULL
   psm_score <- NULL
+  ms_event <- NULL
+  hyperscore <- NULL
 
   if(!file.exists(path)){ cli::cli_abort(".. file {basename(path)} does not exist!") }
 
@@ -47,8 +49,8 @@ import_xtandem <- function(
       xml2::xml_attrs() |>
       unlist() |> t() |>
       as.data.frame() |>
-      tidyr::separate(id, into = c('spectrum_num', 'a' , 'b')) |>
-      dplyr::mutate(spectrum_num = spectrum_num |> as.numeric()) |>
+      tidyr::separate(id, into = c('ms_event', 'a' , 'b')) |>
+      dplyr::mutate(ms_event = ms_event |> as.numeric()) |>
       dplyr::rename(psm_sequence = seq) |>
       dplyr::mutate(psm_peptide = psm_sequence)
 
@@ -70,24 +72,24 @@ import_xtandem <- function(
     xml2::xml_attrs() |>
     lapply(xml_dataframe) |>
     dplyr::bind_rows() |>
-    dplyr::select(spectrum_num = id, psm_protein = label) |>
+    dplyr::select(ms_event = id, psm_protein = label) |>
     dplyr::mutate(psm_protein = stringr::str_remove(psm_protein, "\\s.+")) |>
-    dplyr::mutate(spectrum_num = spectrum_num |> as.numeric()) |>
+    dplyr::mutate(ms_event = ms_event |> as.numeric()) |>
     tibble::as_tibble()
 
 
   tbl <- tbl_proteins |>
-    dplyr::full_join(tbl_peptides, by = "spectrum_num") |>
+    dplyr::full_join(tbl_peptides, by = "ms_event") |>
     dplyr::mutate(#psm_score = expect |> as.numeric() |> log10() * -1,
                   psm_score = hyperscore |> as.numeric(),
                   psm_mh = as.numeric(mh),
                   psm_dp = as.numeric(y_ions) + as.numeric(b_ions) / stringr::str_length(psm_sequence)) |>
-    dplyr::group_by(spectrum_num) |>
+    dplyr::group_by(ms_event) |>
     dplyr::arrange(dplyr::desc(psm_score)) |>
     dplyr::mutate(psm_rank = dplyr::row_number()) |>
     dplyr::ungroup() |>
     dplyr::mutate(origin = 'xtandem') |>
-    dplyr::select(dplyr::matches('file|spectrum_num|origin|decoy|psm'))
+    dplyr::select(dplyr::matches('file|ms_event|origin|decoy|psm'))
 
   return(tbl)
 }
