@@ -45,7 +45,10 @@ reference:
   - msreadr_quo_name
   - path_to_example
   - print.ms2spectra
+  - plot.ms2spectra
   - println
   - omssa_peptide
   - ms_amanda_peptide
   - xtandem_peptide
+  - subset_helper
+  - xic
