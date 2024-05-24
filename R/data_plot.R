@@ -35,11 +35,12 @@ plot.ms2spectra <- function(
     cli::cli_abort("data does not contain ms1 survey scans")
   }
 
-  yval <- "XIC"
+  title <- yval <- "TIC"
   if(is.null(mz)){
-    yval <- "TIC"
     tbl <- x |> xic() |> dplyr::rename(INT = TIC)
   } else {
+    yval <- "XIC"
+    title <- paste(yval, mz, "+/-", mz_tolerance)
     tbl <- x |> xic(mz, mz_tolerance) |> dplyr::rename(INT = XIC)
   }
 
@@ -53,7 +54,8 @@ plot.ms2spectra <- function(
     ggplot2::theme(
       legend.position = 'top',
       legend.title = ggplot2::element_blank()
-    )
+    ) +
+    ggplot2::labs(title = title)
 
 }
 
