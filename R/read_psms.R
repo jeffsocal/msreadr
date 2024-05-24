@@ -21,7 +21,7 @@
 read_psms <- function(
     path_to_psms = NULL,
     path_to_mzml = NULL,
-    platform = c('comet','ms_amanda','omssa','sage','xtandem'),
+    platform = c('comet','ms_amanda','omssa','sage','xtandem','tide'),
     cpus = 4
 ){
 
@@ -52,6 +52,9 @@ read_psms <- function(
           },
           xtandem = {
             out <- import_xtandem(path_to_psms, cpus)
+          },
+          tide = {
+            out <- import_tide(path_to_psms, cpus)
           },
           {
             return(NULL)

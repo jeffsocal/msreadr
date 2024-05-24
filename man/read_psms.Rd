@@ -7,7 +7,7 @@
 read_psms(
   path_to_psms = NULL,
   path_to_mzml = NULL,
-  platform = c("comet", "ms_amanda", "omssa", "sage", "xtandem"),
+  platform = c("comet", "ms_amanda", "omssa", "sage", "xtandem", "tide"),
   cpus = 4
 )
 }

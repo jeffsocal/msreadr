@@ -42,19 +42,21 @@ import_msamanda <- function(
     ) |>
     dplyr::mutate(
       ms_event = ifelse(`Scan Number` == 0, Title, `Scan Number`),
-      psm_dp = `Nr of matched peaks` / `number of considered fragment ions`) |>
+      psm_dp = `Nr of matched peaks` / `number of considered fragment ions`,
+      Sequence = Sequence |> stringr::str_to_upper()) |>
     dplyr::rename(
       psm_score = `Amanda Score`,
       psm_rank = Rank,
       psm_sequence = Sequence,
+      psm_modifications = Modifications,
       psm_protein = `Protein Accessions`
-    )
+    ) |>
+    filter(psm_rank == 1)
 
   # normalize peptide
-  out$psm_sequence <- out$psm_sequence |> stringr::str_to_upper()
-  out <- out |>
-    dplyr::mutate(psm_peptide = purrr::map2(psm_sequence, `Modifications`, ms_amanda_peptide) |> unlist()) |>
-    dplyr::select(!c('Filename','Scan Number'))
+  out <- out |> dplyr::select(!c('Filename','Scan Number'))
+
+  out$psm_peptide <- 1:nrow(out) |> lapply(ms_amanda_peptide, out) |> unlist()
   # compute psm mass
   proton_mass <- mspredictr::mass_proton()
   out$psm_mh <- out$psm_peptide |> lapply(mspredictr::peptide_mass) |> unlist() + proton_mass
@@ -73,22 +75,23 @@ import_msamanda <- function(
 #' @return string
 #'
 ms_amanda_peptide <- function(
-    sequence = NULL,
-    modifications = NULL
+    i = NULL,
+    tbl = NULL
 ){
 
-  sequence <- sequence |> stringr::str_extract_all('[A-Z]') |> unlist()
-  modifications <- modifications |> stringr::str_split(";") |> unlist()
+  sequence <- tbl$psm_sequence[i]
+  modifications <- tbl$psm_modifications[i]
+  if(is.na(modifications)){ return(sequence) }
+
+  sequence <- sequence |> stringr::str_extract_all('[A-Z]') |> unlist(use.names = FALSE)
+  modifications <- modifications |> stringr::str_split(";") |> unlist(use.names = FALSE)
 
   masses <- modifications |> stringr::str_extract("[0-9]+\\.[0-9]+") |> as.numeric()
-  local <- modifications |> stringr::str_extract("(?<=[A-Z])[0-9]+")
+  local <- modifications |> stringr::str_extract("(?<=[A-Z])[0-9]+") |> as.numeric()
 
-  out <- ''
-  for(i in 1:length(sequence)){
-    if(i %in% local){
-      sequence[i] <- paste0("[", sequence[i], mspredictr::num_trunc(masses[which(i == local)],2), "]")
-    }
-    out <- paste0(out, sequence[i])
+  for(n in local){
+    sequence[n] <- paste0("[", sequence[n], mspredictr::num_trunc(masses[which(n == local)],2), "]")
   }
+  out <- paste(sequence, collapse = '')
   return(out)
 }

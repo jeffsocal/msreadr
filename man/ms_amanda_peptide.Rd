@@ -4,7 +4,7 @@
 \alias{ms_amanda_peptide}
 \title{Format MS Amanda peptide strings}
 \usage{
-ms_amanda_peptide(sequence = NULL, modifications = NULL)
+ms_amanda_peptide(i = NULL, tbl = NULL)
 }
 \arguments{
 \item{sequence}{A peptide string}

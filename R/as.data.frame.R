@@ -23,12 +23,23 @@ as.data.frame.ms2spectra <- function(
   .data = rlang::arg_match(.data)
   check_ms2spectra(x)
 
-  if(nrow(x$ms1) > 0){ x$ms1$peaks <- NULL }
-  if(nrow(x$ms2) > 0){ x$ms2$peaks <- NULL }
+  data_names <- names(x)
+  msn_data <- c('ms1', 'ms2')
+  get_data <- .data
 
-  if(.data == 'combined'){ y <- list(x$ms1, x$ms2) |> dplyr::bind_rows() |> dplyr::arrange(ms_event) }
-  if(.data == 'ms1'){ y <- x$ms1 }
-  if(.data == 'ms2'){ y <- x$ms2 }
+  if(get_data == 'combined'){ get_data <- intersect(data_names, msn_data) }
+
+  if(length(intersect(get_data, data_names)) != length(get_data)) {
+    cli::cli_abort("{get_data} not present in data")
+  }
+
+  y <- list()
+  for(get in get_data){
+    x[[get]]$peaks <- NULL
+    y <- y[[length(y) + 1]] <- x[[get]]
+  }
+
+  y <- y |> dplyr::bind_rows() |> dplyr::arrange(ms_event)
 
   class(y) <- 'data.frame'
   return(y)
