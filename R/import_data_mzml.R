@@ -67,7 +67,14 @@ import_mzml <- function(
       ## Get the spectra a list of mz and intensity
       dplyr::mutate(peaks = mzR::spectra(obj_mzml))
 
-    data_lcms$peaks <- data_lcms$peaks |> lapply(function(x){x |> as.data.frame()})
+    data_lcms$peaks <- data_lcms$peaks |>
+      lapply(
+        function(x){
+          x <- x |> as.data.frame()
+          colnames(x) <- c('mz', 'intensity')
+          x
+        }
+      )
 
     ms1 <- NULL
     ms2 <- NULL
