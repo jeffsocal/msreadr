@@ -4,7 +4,7 @@
 \alias{plot.ms2spectra}
 \title{A helper function for the print definition of a ms2spectra object}
 \usage{
-\method{plot}{ms2spectra}(x = NULL, ..., mz = NULL, mz_tolerance = 0.1)
+\method{plot}{ms2spectra}(x = NULL, ..., type = c("IC", "3D"), mz = NULL, mz_tolerance = 0.1)
 }
 \arguments{
 \item{x}{An ms2spectra data object}

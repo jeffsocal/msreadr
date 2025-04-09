@@ -4,12 +4,10 @@
 \alias{import_sage}
 \title{Read a Sage proteomic search results file}
 \usage{
-import_sage(path, cpus = 1)
+import_sage(path)
 }
 \arguments{
 \item{path}{String path to file for importing}
-
-\item{cpus}{The number of cpus to use for importing}
 }
 \value{
 a tibble

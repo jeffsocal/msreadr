@@ -4,12 +4,12 @@
 \alias{import_comet}
 \title{Read a Comet proteomic search results file}
 \usage{
-import_comet(path, cpus = 1)
+import_comet(path, comet_score = "xcorr")
 }
 \arguments{
 \item{path}{String path to file for importing}
 
-\item{cpus}{The number of cpus to use for importing}
+\item{psm_score}{the specific score value to import, either xcorr or e-value}
 }
 \value{
 a tibble

@@ -7,14 +7,10 @@
 #' @param path
 #' String path to file for importing
 #'
-#' @param cpus
-#' The number of cpus to use for importing
-#'
 #' @return a tibble
 #'
 import_omssa <- function(
-    path,
-    cpus = 1
+    path
 ){
 
   # visible bindings

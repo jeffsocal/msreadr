@@ -13,8 +13,8 @@
 #' @param platform
 #' The number of cpus to use for importing
 #'
-#' @param cpus
-#' The number of cpus to use for importing
+#' @param ...
+#' pass-through arguments
 #'
 #' @return a tibble
 #'
@@ -22,7 +22,7 @@ read_psms <- function(
     path_to_psms = NULL,
     path_to_mzml = NULL,
     platform = c('comet','ms_amanda','omssa','sage','xtandem','tide'),
-    cpus = 4
+    ...
 ){
 
   if(is.null(path_to_psms)){ cli::cli_abort("no path to PSM file given") }
@@ -32,29 +32,29 @@ read_psms <- function(
     if(!file.exists(path_to_mzml)){ cli::cli_abort("mzML file does not exist") }
     spec <- path_to_mzml |> read_spectra(include_spectra = FALSE)
   }
-  if(!cpus %in% 1:parallel::detectCores()){
-    cli::cli_abort("number of cores outside the limit of 1|{parallel::detectCores()}")
-  }
+  # if(!cpus %in% 1:parallel::detectCores()){
+  #   cli::cli_abort("number of cores outside the limit of 1|{parallel::detectCores()}")
+  # }
   rlang::arg_match(platform)
 
   switch (platform,
           comet = {
-            out <- import_comet(path_to_psms, cpus)
+            out <- import_comet(path_to_psms, ...)
           },
           ms_amanda = {
-            out <- import_msamanda(path_to_psms, cpus)
+            out <- import_msamanda(path_to_psms)
           },
           omssa = {
-            out <- import_omssa(path_to_psms, cpus)
+            out <- import_omssa(path_to_psms)
           },
           sage = {
-            out <- import_sage(path_to_psms, cpus)
+            out <- import_sage(path_to_psms)
           },
           xtandem = {
-            out <- import_xtandem(path_to_psms, cpus)
+            out <- import_xtandem(path_to_psms)
           },
           tide = {
-            out <- import_tide(path_to_psms, cpus)
+            out <- import_tide(path_to_psms)
           },
           {
             return(NULL)

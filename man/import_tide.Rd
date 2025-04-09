@@ -4,12 +4,10 @@
 \alias{import_tide}
 \title{Read a OMSSA proteomic search results file}
 \usage{
-import_tide(path, cpus = 1)
+import_tide(path)
 }
 \arguments{
 \item{path}{String path to file for importing}
-
-\item{cpus}{The number of cpus to use for importing}
 }
 \value{
 a tibble

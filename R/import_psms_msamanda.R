@@ -4,17 +4,13 @@
 #' `import_msamanda()` is the helper function to import tandem ms search results
 #' into a standardized data table.
 #'
-#' @param path
-#' String path to file for importing
-#'
 #' @param cpus
 #' The number of cpus to use for importing
 #'
 #' @return a tibble
 #'
 import_msamanda <- function(
-    path,
-    cpus = 1
+    path
 ){
 
   # visible bindings

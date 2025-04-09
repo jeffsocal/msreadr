@@ -4,12 +4,10 @@
 \alias{import_omssa}
 \title{Read a OMSSA proteomic search results file}
 \usage{
-import_omssa(path, cpus = 1)
+import_omssa(path)
 }
 \arguments{
 \item{path}{String path to file for importing}
-
-\item{cpus}{The number of cpus to use for importing}
 }
 \value{
 a tibble

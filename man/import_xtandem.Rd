@@ -4,12 +4,10 @@
 \alias{import_xtandem}
 \title{Read a X!Tandem proteomic search results file}
 \usage{
-import_xtandem(path, cpus = 1)
+import_xtandem(path)
 }
 \arguments{
 \item{path}{String path to file for importing}
-
-\item{cpus}{The number of cpus to use for importing}
 }
 \value{
 a tibble

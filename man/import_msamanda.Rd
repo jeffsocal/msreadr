@@ -4,11 +4,9 @@
 \alias{import_msamanda}
 \title{Read a MS Amanda proteomic search results file}
 \usage{
-import_msamanda(path, cpus = 1)
+import_msamanda(path)
 }
 \arguments{
-\item{path}{String path to file for importing}
-
 \item{cpus}{The number of cpus to use for importing}
 }
 \value{

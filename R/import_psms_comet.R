@@ -7,14 +7,14 @@
 #' @param path
 #' String path to file for importing
 #'
-#' @param cpus
-#' The number of cpus to use for importing
+#' @param psm_score
+#' the specific score value to import, either xcorr or e-value
 #'
 #' @return a tibble
 #'
 import_comet <- function(
     path,
-    cpus = 1
+    comet_score = 'xcorr'
 ){
 
   # visible bindings
@@ -30,6 +30,7 @@ import_comet <- function(
   xcorr <- NULL
 
   if(!file.exists(path)){ cli::cli_abort(".. file {basename(path)} does not exist!") }
+  comet_score <- rlang::arg_match(comet_score, c('xcorr', 'e-value'))
 
   proton_mass <- mspredictr::mass_proton()
 
@@ -38,10 +39,16 @@ import_comet <- function(
     readr::read_tsv(
     skip=1,
     show_col_types = FALSE
-  ) |>
+  )
+
+  if(comet_score == 'xcorr'){
+    out <- out |> dplyr::mutate(psm_score = xcorr)
+  } else {
+    out <- out |> dplyr::mutate(psm_score = -log10(`e-value`))
+  }
+
+  out <- out |>
     dplyr::mutate(
-      # psm_score = -log10(`e-value`),
-      psm_score = xcorr,
       # 1Th correction to get [M+H]+
       psm_mh = calc_neutral_mass + proton_mass,
       psm_dp = ions_matched / ions_total

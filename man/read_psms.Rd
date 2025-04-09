@@ -8,7 +8,7 @@ read_psms(
   path_to_psms = NULL,
   path_to_mzml = NULL,
   platform = c("comet", "ms_amanda", "omssa", "sage", "xtandem", "tide"),
-  cpus = 4
+  ...
 )
 }
 \arguments{
@@ -18,7 +18,7 @@ read_psms(
 
 \item{platform}{The number of cpus to use for importing}
 
-\item{cpus}{The number of cpus to use for importing}
+\item{...}{pass-through arguments}
 }
 \value{
 a tibble
