@@ -12,8 +12,8 @@ reference:
     spectra from proteomics and metabolomics experiments.
   contents:
   - read_spectra
-  - subset.ms2spectra
-  - as.data.frame.ms2spectra
+  - subset.msNspectra
+  - as.data.frame.msNspectra
 
 - title: Write mass spectra data files
   description: |
@@ -31,7 +31,7 @@ reference:
 
 - title: internal
   contents:
-  - check_ms2spectra
+  - check_msNspectra
   - "%like%"
   - import_comet
   - import_mgf
@@ -40,12 +40,13 @@ reference:
   - import_omssa
   - import_sage
   - import_xtandem
-  - ms2spectra
+  - import_tide
+  - msNspectra
   - msreadr_quo
   - msreadr_quo_name
   - path_to_example
-  - print.ms2spectra
-  - plot.ms2spectra
+  - print.msNspectra
+  - plot.msNspectra
   - println
   - omssa_peptide
   - ms_amanda_peptide

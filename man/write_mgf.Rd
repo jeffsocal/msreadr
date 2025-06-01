@@ -7,7 +7,7 @@
 write_mgf(data = NULL, path = NULL)
 }
 \arguments{
-\item{data}{An ms2spectra data object}
+\item{data}{An msNspectra data object}
 
 \item{path}{A character string of the path to the MGF formatted file}
 }

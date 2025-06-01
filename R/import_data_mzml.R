@@ -1,7 +1,7 @@
 #' Parse an mzML file
 #'
 #' @description
-#' `import_mzml()` a helper function to parse a given mzML file into a ms2spectra
+#' `import_mzml()` a helper function to parse a given mzML file into a msNspectra
 #' standardized data object for use among the tidyproteomics packages.
 #'
 #' @param path

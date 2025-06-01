@@ -1,12 +1,12 @@
 #' Create a data subset
 #'
 #' @description
-#' `subset()` is the main function for sub-setting spectra data from a ms2spectra
+#' `subset()` is the main function for sub-setting spectra data from a msNspectra
 #' data-object based on a regular expression and targeted annotation. This function
-#' will return a smaller ms2spectra data-object.
+#' will return a smaller msNspectra data-object.
 #'
 #' @param x
-#' An ms2spectra data object
+#' An msNspectra data object
 #'
 #' @param ...
 #' A three part expression (eg. x == a)
@@ -26,7 +26,7 @@
 #'
 #' data |> subset(precursor_mz > 400)
 #'
-subset.ms2spectra <- function(
+subset.msNspectra <- function(
     x = NULL,
     ...,
     .verbose = TRUE
@@ -35,7 +35,7 @@ subset.ms2spectra <- function(
   # visible bindings
   ms_event <- NULL
 
-  check_ms2spectra(x)
+  check_msNspectra(x)
   str_quo <- msreadr_quo(...)
   if(is.null(str_quo)) { return(x) }
 
@@ -61,7 +61,7 @@ subset.ms2spectra <- function(
   }
 
   cli::cli_progress_done()
-  return(ms2spectra(x))
+  return(msNspectra(x))
 }
 
 #' Helper function to subset a data frame

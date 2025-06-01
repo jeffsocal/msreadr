@@ -1,7 +1,7 @@
-#' A helper function for the print definition of a ms2spectra object
+#' A helper function for the print definition of a msNspectra object
 #'
 #' @param x
-#' An ms2spectra data object
+#' An msNspectra data object
 #'
 #' @param ...
 #' Unused legacy
@@ -16,12 +16,13 @@
 #'
 #' @import ggplot2
 #'
-plot.ms2spectra <- function(
+plot.msNspectra <- function(
     x = NULL,
     ...,
     type = c('IC','3D'),
     mz = NULL,
-    mz_tolerance = 0.1
+    mz_tolerance = 0.1,
+    bins = 32
 ){
 
   # visible bindings
@@ -31,9 +32,14 @@ plot.ms2spectra <- function(
   ms_event_time <- NULL
   ms_event_info <- NULL
 
-  check_ms2spectra(x)
+  check_msNspectra(x)
   if(!"ms1" %in% names(x)){
     cli::cli_abort("data does not contain ms1 survey scans")
+  }
+
+  type <- rlang::arg_match(type)
+  if (!bins %in% 1:4096){
+    cli::cli_abort("bins should be a numeric between 1 and 4096, not {bins}")
   }
 
   if(type =='IC'){
@@ -59,6 +65,9 @@ plot.ms2spectra <- function(
       ) +
       ggplot2::labs(title = title)
   } else {
+
+    bin <- function(x, n = 52){round(x / (diff(range(x)) / n)) * (diff(range(x)) / n)}
+
     title <- "Feature Map"
 
     x$ms1 |>
@@ -66,8 +75,19 @@ plot.ms2spectra <- function(
       dplyr::select(peaks) |>
       tidyr::unnest(peaks) |>
       dplyr::bind_rows() |>
-      ggplot2::ggplot(ggplot2::aes(mz, ms_event_time, color = log10(intensity))) +
-      ggplot2::geom_point()
+      dplyr::mutate(mz = mz |> bin(n = bins)) |>
+      dplyr::mutate(ms_event_time = ms_event_time |> bin(n = bins)) |>
+      dplyr::group_by(mz, ms_event_time) |>
+      dplyr::summarise(intensity = intensity |> sum()) |>
+      ggplot2::ggplot(ggplot2::aes(mz, ms_event_time, fill = intensity)) +
+      ggplot2::geom_tile() +
+      ggplot2::scale_fill_viridis_c(trans = 'log10') +
+      ggplot2::theme(
+        legend.position = 'none',
+        legend.title = ggplot2::element_blank()
+      ) +
+      ggplot2::labs(title = title) +
+      theme_classic()
 
 
   }

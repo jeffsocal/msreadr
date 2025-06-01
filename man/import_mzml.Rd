@@ -10,6 +10,6 @@ import_mzml(path = NULL)
 \item{path}{A character string of the path to the mzML formatted file}
 }
 \description{
-\code{import_mzml()} a helper function to parse a given mzML file into a ms2spectra
+\code{import_mzml()} a helper function to parse a given mzML file into a msNspectra
 standardized data object for use among the tidyproteomics packages.
 }

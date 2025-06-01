@@ -12,7 +12,7 @@ into a standardized data table from various platforms."><!-- mathjax --><script 
     
     <a class="navbar-brand me-2" href="../index.html">msreadr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.5</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,8 +48,8 @@ into a standardized data table from various platforms.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">read_psms</span><span class="op">(</span></span>
 <span>  path_to_psms <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  path_to_mzml <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  platform <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"comet"</span>, <span class="st">"ms_amanda"</span>, <span class="st">"omssa"</span>, <span class="st">"sage"</span>, <span class="st">"xtandem"</span><span class="op">)</span>,</span>
-<span>  cpus <span class="op">=</span> <span class="fl">4</span></span>
+<span>  platform <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"comet"</span>, <span class="st">"ms_amanda"</span>, <span class="st">"omssa"</span>, <span class="st">"sage"</span>, <span class="st">"xtandem"</span>, <span class="st">"tide"</span><span class="op">)</span>,</span>
+<span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -67,8 +67,8 @@ into a standardized data table from various platforms.</p>
 <dd><p>The number of cpus to use for importing</p></dd>
 
 
-<dt>cpus</dt>
-<dd><p>The number of cpus to use for importing</p></dd>
+<dt>...</dt>
+<dd><p>pass-through arguments</p></dd>
 
 </dl></div>
     <div class="section level2">

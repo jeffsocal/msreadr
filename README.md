@@ -12,6 +12,19 @@ install.packages("devtools")
 devtools::install_github("jeffsocal/msreadr")
 ```
 
+… also install other GitHub dependencies
+
+``` r
+devtools::install_github("jeffsocal/mspredictr")
+```
+
+… also install other Bioconductor dependencies
+
+``` r
+install.packages("BiocManager")
+BiocManager::install("mzR")
+```
+
 ## Get Started
 
 Its simple to get started, just point the `read_spectra()` function at a
@@ -19,29 +32,53 @@ downloaded MGF or mzML file and save as an object.
 
 ``` r
 library(msreadr)
-data <- path_to_example() |> read_spectra()
+mzml <- path_to_example() |> read_spectra()
 ```
 
 Examine the contents
 
 ``` r
-data
+mzml
 ```
 
     ## 
 
-    ## ── R MS SPECTRA data object ──
+    ## ── MS SPECTRA data object ──
 
     ## 
 
-    ## Memory          35.58 kB 
-    ## Scans           8 
-    ## Precursor        
-    ##   Intensity     6.5 - 8.3 (log10) 
-    ##   LC time       0.29 - 0.92 (sec) 
-    ##   M/Z           378.1929 - 506.757 
-    ##   Z             2 
+    ## Memory               87.99 MB 
+    ## MS1 Scans            900 
+    ##   LC time            0.12 - 2218.76 (sec) 
+    ##   ~ FTMS + p NSI Full ms [375.0000-1200.0000]  
+    ## MS2 Scans            15024 
+    ##   LC time            0.65 - 2220.23 (sec) 
+    ##   precursors         374.67 - 1196.97 (mz) 
     ## 
+
+Plot a TIC
+
+``` r
+mzml |> plot()
+```
+
+![](man/figures/tic.png)
+
+Plot an XIC
+
+``` r
+mzml |> plot(mz = 456.5, mz_tolerance = .5)
+```
+
+![](man/figures/xic.png)
+
+Plot an MS1 heatmap
+
+``` r
+mzml |> plot(type = '3D', bins = 256)
+```
+
+![](man/figures/3d.png)
 
 ## Extending msreader
 

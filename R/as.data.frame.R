@@ -7,11 +7,11 @@
 #' Unused legacy
 #'
 #' @param .data
-#' The ms2spectra data to extract as a data.frame
+#' The msNspectra data to extract as a data.frame
 #'
 #' @exportS3Method
 #'
-as.data.frame.ms2spectra <- function(
+as.data.frame.msNspectra <- function(
     x,
     ...,
     .data = c("combined", "ms1", "ms2")
@@ -21,7 +21,7 @@ as.data.frame.ms2spectra <- function(
   ms_event <- NULL
 
   .data = rlang::arg_match(.data)
-  check_ms2spectra(x)
+  check_msNspectra(x)
 
   data_names <- names(x)
   msn_data <- c('ms1', 'ms2')

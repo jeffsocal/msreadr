@@ -16,7 +16,13 @@
     <loc>https://jeffsocal.github.io/msreadr/reference/as.data.frame.ms2spectra.html</loc>
   </url>
   <url>
+    <loc>https://jeffsocal.github.io/msreadr/reference/as.data.frame.msNspectra.html</loc>
+  </url>
+  <url>
     <loc>https://jeffsocal.github.io/msreadr/reference/check_ms2spectra.html</loc>
+  </url>
+  <url>
+    <loc>https://jeffsocal.github.io/msreadr/reference/check_msNspectra.html</loc>
   </url>
   <url>
     <loc>https://jeffsocal.github.io/msreadr/reference/grapes-like-grapes.html</loc>
@@ -40,6 +46,9 @@
     <loc>https://jeffsocal.github.io/msreadr/reference/import_sage.html</loc>
   </url>
   <url>
+    <loc>https://jeffsocal.github.io/msreadr/reference/import_tide.html</loc>
+  </url>
+  <url>
     <loc>https://jeffsocal.github.io/msreadr/reference/import_xtandem.html</loc>
   </url>
   <url>
@@ -47,6 +56,9 @@
   </url>
   <url>
     <loc>https://jeffsocal.github.io/msreadr/reference/ms2spectra.html</loc>
+  </url>
+  <url>
+    <loc>https://jeffsocal.github.io/msreadr/reference/msNspectra.html</loc>
   </url>
   <url>
     <loc>https://jeffsocal.github.io/msreadr/reference/ms_amanda_peptide.html</loc>
@@ -67,7 +79,13 @@
     <loc>https://jeffsocal.github.io/msreadr/reference/plot.ms2spectra.html</loc>
   </url>
   <url>
+    <loc>https://jeffsocal.github.io/msreadr/reference/plot.msNspectra.html</loc>
+  </url>
+  <url>
     <loc>https://jeffsocal.github.io/msreadr/reference/print.ms2spectra.html</loc>
+  </url>
+  <url>
+    <loc>https://jeffsocal.github.io/msreadr/reference/print.msNspectra.html</loc>
   </url>
   <url>
     <loc>https://jeffsocal.github.io/msreadr/reference/println.html</loc>
@@ -83,6 +101,9 @@
   </url>
   <url>
     <loc>https://jeffsocal.github.io/msreadr/reference/subset.ms2spectra.html</loc>
+  </url>
+  <url>
+    <loc>https://jeffsocal.github.io/msreadr/reference/subset.msNspectra.html</loc>
   </url>
   <url>
     <loc>https://jeffsocal.github.io/msreadr/reference/subset_helper.html</loc>

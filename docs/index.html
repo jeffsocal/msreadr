@@ -30,7 +30,7 @@
     
     <a class="navbar-brand me-2" href="index.html">msreadr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.5</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -65,31 +65,50 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span></span>
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"jeffsocal/msreadr"</span><span class="op">)</span></span></code></pre></div>
+<p>… also install other GitHub dependencies</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"jeffsocal/mspredictr"</span><span class="op">)</span></span></code></pre></div>
+<p>… also install other Bioconductor dependencies</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span></span>
+<span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://bioconductor.github.io/BiocManager/reference/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"mzR"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="get-started">Get Started<a class="anchor" aria-label="anchor" href="#get-started"></a>
 </h2>
 <p>Its simple to get started, just point the <code><a href="reference/read_spectra.html">read_spectra()</a></code> function at a downloaded MGF or mzML file and save as an object.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">msreadr</span><span class="op">)</span></span>
-<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/path_to_example.html">path_to_example</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="reference/read_spectra.html">read_spectra</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">mzml</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/path_to_example.html">path_to_example</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="reference/read_spectra.html">read_spectra</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>Examine the contents</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">data</span></span></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="do">## ── R MS SPECTRA data object ──</span></span>
-<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a></span>
-<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a><span class="do">## Memory          35.58 kB </span></span>
-<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a><span class="do">## Scans           8 </span></span>
-<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a><span class="do">## Precursor        </span></span>
-<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a><span class="do">##   Intensity     6.5 - 8.3 (log10) </span></span>
-<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a><span class="do">##   LC time       0.29 - 0.92 (sec) </span></span>
-<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a><span class="do">##   M/Z           378.1929 - 506.757 </span></span>
-<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a><span class="do">##   Z             2 </span></span>
-<span id="cb4-14"><a href="#cb4-14" tabindex="-1"></a><span class="do">## </span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">mzml</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="do">## ── MS SPECTRA data object ──</span></span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a><span class="do">## Memory               87.99 MB </span></span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a><span class="do">## MS1 Scans            900 </span></span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a><span class="do">##   LC time            0.12 - 2218.76 (sec) </span></span>
+<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a><span class="do">##   ~ FTMS + p NSI Full ms [375.0000-1200.0000]  </span></span>
+<span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a><span class="do">## MS2 Scans            15024 </span></span>
+<span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a><span class="do">##   LC time            0.65 - 2220.23 (sec) </span></span>
+<span id="cb6-13"><a href="#cb6-13" tabindex="-1"></a><span class="do">##   precursors         374.67 - 1196.97 (mz) </span></span>
+<span id="cb6-14"><a href="#cb6-14" tabindex="-1"></a><span class="do">## </span></span></code></pre></div>
+<p>Plot a TIC</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">mzml</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p><img src="reference/figures/tic.png"></p>
+<p>Plot an XIC</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">mzml</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>mz <span class="op">=</span> <span class="fl">456.5</span>, mz_tolerance <span class="op">=</span> <span class="fl">.5</span><span class="op">)</span></span></code></pre></div>
+<p><img src="reference/figures/xic.png"></p>
+<p>Plot an MS1 heatmap</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">mzml</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">'3D'</span>, bins <span class="op">=</span> <span class="fl">256</span><span class="op">)</span></span></code></pre></div>
+<p><img src="reference/figures/3d.png"></p>
 </div>
 <div class="section level2">
 <h2 id="extending-msreader">Extending msreader<a class="anchor" aria-label="anchor" href="#extending-msreader"></a>

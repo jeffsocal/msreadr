@@ -1,12 +1,12 @@
 #' Create a data subset
 #'
 #' @description
-#' `subset()` is the main function for sub-setting spectra data from a ms2spectra
+#' `subset()` is the main function for sub-setting spectra data from a msNspectra
 #' data-object based on a regular expression and targeted annotation. This function
-#' will return a smaller ms2spectra data-object.
+#' will return a smaller msNspectra data-object.
 #'
 #' @param data
-#' An ms2spectra data object
+#' An msNspectra data object
 #'
 #' @param mz
 #' The mz value (Th) to extract
@@ -25,7 +25,7 @@ xic <- function(
   # visible bindings
   peaks <- NULL
 
-  check_ms2spectra(data)
+  check_msNspectra(data)
   if(!"ms1" %in% names(data)){
     cli::cli_abort("data does not contain ms1 survey scans")
   }

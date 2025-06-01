@@ -10,6 +10,6 @@ import_mgf(path = NULL)
 \item{path}{A character string of the path to the MGF formatted file}
 }
 \description{
-\code{import_mgf()} a helper function to parse a given MGF file into a ms2spectra
+\code{import_mgf()} a helper function to parse a given MGF file into a msNspectra
 standardized data object for use among the tidyproteomics packages.
 }

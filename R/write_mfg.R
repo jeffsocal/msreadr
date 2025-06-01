@@ -5,7 +5,7 @@
 #' formmated file.
 #'
 #' @param data
-#' An ms2spectra data object
+#' An msNspectra data object
 #'
 #' @param path
 #' A character string of the path to the MGF formatted file
@@ -26,7 +26,7 @@ write_mgf <- function(
     path = NULL
 ){
 
-  check_ms2spectra(data)
+  check_msNspectra(data)
   if(!'ms2' %in% names(data)) { cli::cli_abort("No ms2 spectra in data object ...") }
   data <- data$ms2
   if(!'peaks' %in% names(data)) { cli::cli_abort("No spectrum peaks in data object ...") }

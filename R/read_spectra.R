@@ -2,7 +2,7 @@
 #'
 #' @description
 #' `read_spectra()` is the main function for parse a given mzML or MGF file into
-#' a ms2spectra standardized data object for use among the tidyproteomics packages.
+#' a msNspectra standardized data object for use among the tidyproteomics packages.
 #'
 #' @param path
 #' A character string of the path to the mzML or MGF formatted file
@@ -48,5 +48,5 @@ read_spectra <- function(
     tbl_spectra <- tbl_spectra |> dplyr::select(-peaks)
   }
 
-  return(tbl_spectra |> ms2spectra())
+  return(tbl_spectra |> msNspectra())
 }

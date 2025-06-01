@@ -1,7 +1,7 @@
 #' Parse an MGF file
 #'
 #' @description
-#' `import_mgf()` a helper function to parse a given MGF file into a ms2spectra
+#' `import_mgf()` a helper function to parse a given MGF file into a msNspectra
 #' standardized data object for use among the tidyproteomics packages.
 #'
 #' @param path

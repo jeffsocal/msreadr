@@ -7,14 +7,14 @@
 xic(data = NULL, mz = NULL, mz_tolerance = 0.1)
 }
 \arguments{
-\item{data}{An ms2spectra data object}
+\item{data}{An msNspectra data object}
 
 \item{mz}{The mz value (Th) to extract}
 
 \item{mz_tolerance}{The tolerance +/- the mz value (Th) to extract}
 }
 \description{
-\code{subset()} is the main function for sub-setting spectra data from a ms2spectra
+\code{subset()} is the main function for sub-setting spectra data from a msNspectra
 data-object based on a regular expression and targeted annotation. This function
-will return a smaller ms2spectra data-object.
+will return a smaller msNspectra data-object.
 }

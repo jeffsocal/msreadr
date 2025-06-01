@@ -5,7 +5,7 @@
 #' formmated file.
 #'
 #' @param data
-#' An ms2spectra data object
+#' An msNspectra data object
 #'
 #' @param path
 #' A character string of the path to the mzML formatted file
@@ -37,7 +37,7 @@ write_mzml <- function(
   lowMZ <- NULL
   highMZ <- NULL
 
-  check_ms2spectra(data)
+  check_msNspectra(data)
 
   cli::cli_div(theme = list(span.emph = list(color = "#ff4500")))
   if(is.null(path)) {cli::cli_abort(c("x" = "path is empty"))}

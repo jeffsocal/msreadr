@@ -20,24 +20,54 @@ install.packages("devtools")
 devtools::install_github("jeffsocal/msreadr")
 ```
 
+... also install other GitHub dependencies
+```{r, eval=FALSE}
+devtools::install_github("jeffsocal/mspredictr")
+```
+
+... also install other Bioconductor dependencies
+```{r, eval=FALSE}
+install.packages("BiocManager")
+BiocManager::install("mzR")
+```
+
 ## Get Started
 
 Its simple to get started, just point the `read_spectra()` function at a downloaded MGF or mzML file and save as an object.
 
 ```{r, echo=FALSE, warning=FALSE, message=FALSE}
 library(msreadr)
-data <- path_to_example() |> read_spectra()
+# data <- path_to_example() |> read_spectra()
+mzml <- "~/Local/data/mzml_test/hela.msn.mzML" |> read_spectra()
 ```
 
 ```{r, eval=FALSE}
 library(msreadr)
-data <- path_to_example() |> read_spectra()
+mzml <- path_to_example() |> read_spectra()
 ```
 
 Examine the contents
 
 ```{r}
-data
+mzml
+```
+
+Plot a TIC
+
+```{r, eval=FALSE}
+mzml |> plot()
+```
+
+Plot an XIC
+
+```{r, eval=FALSE}
+mzml |> plot(mz = 456.5, mz_tolerance = .5)
+```
+
+Plot an MS1 heatmap
+
+```{r, eval=FALSE}
+mzml |> plot(type = '3D', bins = 256)
 ```
 
 ## Extending msreader

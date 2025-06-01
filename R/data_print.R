@@ -1,19 +1,19 @@
-#' A helper function for the print definition of a ms2spectra object
+#' A helper function for the print definition of a msNspectra object
 #'
 #' @param x
-#' An ms2spectra data object
+#' An msNspectra data object
 #'
 #' @param ...
 #' Unused legacy
 #'
 #' @exportS3Method
 #'
-print.ms2spectra <- function(
+print.msNspectra <- function(
     x,
     ...
 ) {
 
-  check_ms2spectra(x)
+  check_msNspectra(x)
 
   parts <- names(x)
 
